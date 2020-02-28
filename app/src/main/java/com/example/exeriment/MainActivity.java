@@ -17,19 +17,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
+
+import static java.lang.String.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +49,23 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private static String SEPARATOR, TERMINATOR;
     private boolean restartDiscoveryBoolean;
+    Button turnaround, left, right, hello, dothis, goodJob, howAre;
+    // Command String variables for expressions //
+    final String FORWARD_MOVEMENT_CLASSIFIER = "F";
+    final String BACKWARD_MOVEMENT_CLASSIFIER = "B";
+    final String LEFT_MOVEMENT_CLASSIFIER = "L";
+    final String RIGHT_MOVEMENT_CLASSIFIER = "R";
+    final String STOP_MOVEMENT_CLASSIFIER = "S";
+    final String MODIFIER = "000_000";
+    final String distance = "1000";
+    final String trunDistance = "4000";
+    TextView tvHello, tvHow, tvTurn, tvRight, tvLeft, tvDo, tvGood;
+    int helloTrial, howTrial, turnTrial, rightTrial, leftTrial, doTrial, goodTrial;
+    private float DEFAULT_SPEED = 0.75f; //is actually 0.01 * 100% //
+    private double mySpeed;
+    int defaultPercentage;
+
+
     private BroadcastReceiver BT_BroadcastReceiver = new BroadcastReceiver() {
 
         ArrayList<BluetoothDevice> potentialFaceDevices = new ArrayList<>();
@@ -77,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     // object and its info from the Intent.
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                     String deviceName = device.getName();
-                    if(deviceName != null){
+                    if (deviceName != null) {
                         deviceName = deviceName.toUpperCase();
                     }
                     String deviceHardwareAddress = device.getAddress(); // MAC address
@@ -121,11 +143,11 @@ public class MainActivity extends AppCompatActivity {
             myBluetoothService.write(fullMessage);
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         SEPARATOR = "_";
         TERMINATOR = "#";
         myName = "ROBOCHOTU_REMOTE";
@@ -133,8 +155,83 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         setUpBluetooth();
+        turnaround = (Button) findViewById(R.id.btnturn);
+        left = (Button) findViewById(R.id.btnLeft);
+        right = (Button) findViewById(R.id.btnRight);
+        hello = (Button) findViewById(R.id.btnHello);
+        dothis = (Button) findViewById(R.id.btnDothis);
+        goodJob = (Button) findViewById(R.id.btngjob);
+        howAre = (Button) findViewById(R.id.btnHow);
+        tvHello = (TextView) findViewById(R.id.hello);
+        tvHow = (TextView) findViewById(R.id.question);
+        tvTurn = (TextView) findViewById(R.id.turnAround);
+        tvDo = (TextView) findViewById(R.id.doThis);
+        tvLeft = (TextView) findViewById(R.id.tLeft);
+        tvRight = (TextView) findViewById(R.id.tRight);
+        tvGood = (TextView) findViewById(R.id.goodJob);
 
+        hello.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth("G", "Hello", valueOf(mySpeed));
+                helloTrial ++;
+                tvHello.setText(String.valueOf(helloTrial));
+            }
+        });
+
+        turnaround.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth(LEFT_MOVEMENT_CLASSIFIER, trunDistance, MODIFIER);
+            turnTrial ++;
+            tvTurn.setText(String.valueOf(turnTrial));
+            }
+        });
+        right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth(RIGHT_MOVEMENT_CLASSIFIER, distance, MODIFIER);
+                rightTrial++;
+                tvRight.setText(String.valueOf(rightTrial));
+            }
+        });
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth(LEFT_MOVEMENT_CLASSIFIER, distance, MODIFIER);
+                leftTrial++;
+                tvLeft.setText(String.valueOf(leftTrial));
+
+            }
+        });
+        dothis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth("G", "DO This", valueOf(mySpeed));
+                doTrial++;
+                tvDo.setText(String.valueOf(doTrial));
+
+            }
+        });
+        goodJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth("G", "Good Job", valueOf(mySpeed));
+                goodTrial++;
+                tvGood.setText(String.valueOf(goodTrial));
+            }
+        });
+        howAre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth("G", "How Are You", valueOf(mySpeed));
+                howTrial++;
+                tvHow.setText(String.valueOf(howTrial));
+
+            }
+        });
     }
+
     private void setUpBluetooth() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
@@ -146,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
             connectToBluetoothDevice();
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -158,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     private void connectToBluetoothDevice() {
 
         Log.d(TAG, bluetoothAdapter.getName());
@@ -324,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    private void endDiscovery(){
+    private void endDiscovery() {
         if (bluetoothAdapter.isDiscovering()) {
             bluetoothAdapter.cancelDiscovery();
             progressBar.setVisibility(View.GONE);
@@ -332,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void beginDiscoveryAgain() {
-        if(restartDiscoveryBoolean){
+        if (restartDiscoveryBoolean) {
             beginDiscovery();
         }
     }
@@ -346,8 +445,7 @@ public class MainActivity extends AppCompatActivity {
         if (bluetoothAdapter.isDiscovering()) {
             restartDiscoveryBoolean = true;
             bluetoothAdapter.cancelDiscovery();
-        }
-        else{
+        } else {
             restartDiscoveryBoolean = false;
         }
     }
