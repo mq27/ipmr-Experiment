@@ -15,13 +15,34 @@
         android:textAlignment="center"
         android:textColor="#0000FF"
         android:textSize="20dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center|center"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|center"
+            android:orientation="vertical">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/resetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reset Trials" />
+            <RadioButton
+                android:id="@+id/stopButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Stop Motion" />
+        </RadioGroup>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,11 +57,11 @@
                 android:text="Hello" />
 
             <TextView
+                android:id="@+id/hello"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="trial"
-                android:id="@+id/hello"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
         <LinearLayout
@@ -56,12 +77,13 @@
                 android:text="How Are You" />
 
             <TextView
+                android:id="@+id/question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="trial"
-                android:id="@+id/question"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,11 +100,11 @@
                 android:text="Turn Around" />
 
             <TextView
+                android:id="@+id/turnAround"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="trial"
-                android:id="@+id/turnAround"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,11 +120,11 @@
                 android:text="Turn Right" />
 
             <TextView
+                android:id="@+id/tRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="trial"
-                android:textColor="@color/colorPrimary"
-                android:id="@+id/tRight"/>
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
         <LinearLayout
@@ -118,13 +140,12 @@
                 android:text="Turn Left" />
 
             <TextView
+                android:id="@+id/tLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="trial"
-                android:id="@+id/tLeft"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -132,17 +153,17 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnDothis"
+                android:id="@+id/btngo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Do This" />
+                android:text="Go Back" />
 
             <TextView
+                android:id="@+id/goTrial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="trial"
-                android:textColor="@color/colorPrimary"
-                android:id="@+id/doThis"/>
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
         <LinearLayout
@@ -158,12 +179,52 @@
                 android:text="Good Job" />
 
             <TextView
+                android:id="@+id/goodJob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="trial"
-                android:id="@+id/goodJob"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnFinish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Finish" />
+
+            <TextView
+                android:id="@+id/finishTrial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="trial"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnBye"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BYE Bye" />
+
+            <TextView
+                android:id="@+id/byeTrial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="trial"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
