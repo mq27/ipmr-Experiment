@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.String.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,12 +62,13 @@ public class MainActivity extends AppCompatActivity {
     final String RIGHT_MOVEMENT_CLASSIFIER = "R";
     final String STOP_MOVEMENT_CLASSIFIER = "S";
     final String SPEAK_OUT_CLASSIFIER = "G";
-
+    final Handler handler = new Handler();
     final String EMOTION_CLASSIFIER = "E";
     final String TAIL_STRING = "000";
     final String VERBALIZE_EMOTION = "V";
     final String MODIFIER = "000_000";
     final String distance = "800";
+    final String backDistance= "000";
     final String trunDistance = "2500";
     TextView tvHello, tvHow, tvTurn, tvRight, tvLeft, tvbye, tvGood,tvGo,tvFinish;
     int helloTrial, howTrial, turnTrial, rightTrial, leftTrial, doTrial, goodTrial,gobck,byebye;
@@ -133,12 +135,12 @@ public class MainActivity extends AppCompatActivity {
 
                 case BluetoothDevice.ACTION_ACL_CONNECTED:
                     Log.d(TAG, "Bluetooth device connected");
-                    Toast.makeText(context, "Bluetooth device connected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Bluetooth device connected", LENGTH_SHORT).show();
                     break;
 
                 case BluetoothDevice.ACTION_ACL_DISCONNECTED:
                     Log.d(TAG, "Bluetooth device disconnected");
-                    Toast.makeText(context, "Bluetooth device disconnected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Bluetooth device disconnected", LENGTH_SHORT).show();
                     break;
             }
         }
@@ -209,6 +211,12 @@ public class MainActivity extends AppCompatActivity {
                 writeToBluetooth(RIGHT_MOVEMENT_CLASSIFIER, distance, MODIFIER);
                 rightTrial++;
                 tvRight.setText(String.valueOf(rightTrial));
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        writeToBluetooth(LEFT_MOVEMENT_CLASSIFIER,distance,MODIFIER);
+                    }
+                },5000);
             }
         });
         left.setOnClickListener(new View.OnClickListener() {
@@ -218,6 +226,13 @@ public class MainActivity extends AppCompatActivity {
                 writeToBluetooth(LEFT_MOVEMENT_CLASSIFIER, distance, MODIFIER);
                 leftTrial++;
                 tvLeft.setText(String.valueOf(leftTrial));
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                       // Toast.makeText(MainActivity.this,"working",LENGTH_SHORT).show();
+                        writeToBluetooth(RIGHT_MOVEMENT_CLASSIFIER,distance,MODIFIER);
+                    }
+                },5000);
 
             }
         });
@@ -234,9 +249,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 writeToBluetooth("G", "Good Job", valueOf(mySpeed));
-                final MediaPlayer claps = MediaPlayer.create(MainActivity.this,R.raw.claps);
-                claps.start();
-                writeToBluetooth("G",claps,valueOf(mySpeed));
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        writeToBluetooth(EMOTION_CLASSIFIER,"HAPPY"+VERBALIZE_EMOTION,TAIL_STRING);
+                    }
+                },500);// writeToBluetooth();
                 goodTrial++;
                 tvGood.setText(String.valueOf(goodTrial));
             }
@@ -484,7 +502,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.d(TAG, "Start discovery: " + bluetoothAdapter.startDiscovery());
 
-        Toast.makeText(this, "Looking for devices nearby", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Looking for devices nearby", LENGTH_SHORT).show();
         progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -573,7 +591,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.this, "Unable to connect. The device is out of range.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Unable to connect. The device is out of range.", LENGTH_SHORT).show();
                     }
                 });
 
