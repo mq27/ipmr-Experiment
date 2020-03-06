@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private static String SEPARATOR, TERMINATOR;
     private boolean restartDiscoveryBoolean;
-    Button turnaround, left, right, hello, btnbye, goodJob, howAre,goBack,finish;
+    Button turnaround, forward, backward, hello, btnbye, goodJob, howAre,goBack,finish,student1,student2,student3,student4,student5,student6;
     RadioButton reset,stopMtion;
     // Command String variables for expressions //
     final String FORWARD_MOVEMENT_CLASSIFIER = "F";
@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     final String VERBALIZE_EMOTION = "V";
     final String MODIFIER = "000_000";
     final String distance = "800";
-    final String backDistance= "000";
     final String trunDistance = "2500";
     TextView tvHello, tvHow, tvTurn, tvRight, tvLeft, tvbye, tvGood,tvGo,tvFinish;
     int helloTrial, howTrial, turnTrial, rightTrial, leftTrial, doTrial, goodTrial,gobck,byebye;
@@ -167,8 +166,8 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         setUpBluetooth();
         turnaround = (Button) findViewById(R.id.btnturn);
-        left = (Button) findViewById(R.id.btnLeft);
-        right = (Button) findViewById(R.id.btnRight);
+        backward = (Button) findViewById(R.id.btnLeft);
+        forward = (Button) findViewById(R.id.btnRight);
         hello = (Button) findViewById(R.id.btnHello);
         btnbye = (Button) findViewById(R.id.btnBye);
         goodJob = (Button) findViewById(R.id.btngjob);
@@ -186,6 +185,14 @@ public class MainActivity extends AppCompatActivity {
         tvFinish=(TextView)findViewById(R.id.finishTrial);
         reset =(RadioButton)findViewById(R.id.resetButton);
         stopMtion=(RadioButton)findViewById(R.id.stopButton);
+
+        //students name
+        student1= (Button) findViewById(R.id.khizar);
+        student2= (Button) findViewById(R.id.Usman);
+        student3= (Button) findViewById(R.id.Adyaan);
+        student4= (Button) findViewById(R.id.Armaan);
+        student5= (Button) findViewById(R.id.Essa);
+        student6= (Button) findViewById(R.id.Arham);
         hello.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,11 +211,11 @@ public class MainActivity extends AppCompatActivity {
             tvTurn.setText(String.valueOf(turnTrial));
             }
         });
-        right.setOnClickListener(new View.OnClickListener() {
+        forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 writeToBluetooth("G", "Do this", valueOf(mySpeed));
-                writeToBluetooth(RIGHT_MOVEMENT_CLASSIFIER, distance, MODIFIER);
+                writeToBluetooth(FORWARD_MOVEMENT_CLASSIFIER, distance, MODIFIER);
                 rightTrial++;
                 tvRight.setText(String.valueOf(rightTrial));
                 handler.postDelayed(new Runnable() {
@@ -219,11 +226,11 @@ public class MainActivity extends AppCompatActivity {
                 },5000);
             }
         });
-        left.setOnClickListener(new View.OnClickListener() {
+        backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 writeToBluetooth("G", "DO This", valueOf(mySpeed));
-                writeToBluetooth(LEFT_MOVEMENT_CLASSIFIER, distance, MODIFIER);
+                writeToBluetooth(BACKWARD_MOVEMENT_CLASSIFIER, distance, MODIFIER);
                 leftTrial++;
                 tvLeft.setText(String.valueOf(leftTrial));
                 handler.postDelayed(new Runnable() {
@@ -288,6 +295,47 @@ public class MainActivity extends AppCompatActivity {
                 writeToBluetooth("G","Finish",valueOf(mySpeed));
                 byebye++;
                 tvFinish.setText(valueOf(byebye));
+            }
+        });
+        student1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth("G", "Khizar Do This", valueOf(DEFAULT_SPEED));
+            }
+        });
+
+        student2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth("G", "Usmaan Do This", valueOf(mySpeed));
+            }
+        });
+
+        student3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth("G", "Adyaan Do This", valueOf(mySpeed));
+            }
+        });
+
+        student4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth("G", "Armaan Do This", valueOf(mySpeed));
+            }
+        });
+
+        student5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth("G", "eesa Do This", valueOf(mySpeed));
+            }
+        });
+
+        student6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth("G","Arhaam Do This", valueOf(mySpeed));
             }
         });
         reset.setOnClickListener(new View.OnClickListener() {

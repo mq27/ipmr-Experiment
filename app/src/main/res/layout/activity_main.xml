@@ -7,14 +7,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Gross Motor Skill Experiment"
-        android:textAlignment="center"
-        android:textColor="#0000FF"
-        android:textSize="20dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -27,22 +19,78 @@
             android:gravity="center|center"
             android:orientation="vertical">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/resetButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reset Trials" />
-            <RadioButton
-                android:id="@+id/stopButton"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Stop Motion" />
-        </RadioGroup>
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/resetButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reset Trials" />
+
+                <RadioButton
+                    android:id="@+id/stopButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Stop Motion" />
+            </RadioGroup>
         </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/khizar"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="500dp"
+                android:text="Khzr"
+                tools:ignore="HardcodedText" />
+
+            <Button
+                android:id="@+id/Usman"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="65dp"
+                android:text="Usmn"
+                tools:ignore="HardcodedText" />
+
+            <Button
+                android:id="@+id/Adyaan"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="130dp"
+                android:text="Adyan"
+                tools:ignore="HardcodedText" />
+
+            <Button
+                android:id="@+id/Armaan"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="205dp"
+                android:text="Armn"
+                tools:ignore="HardcodedText" />
+            <Button
+                android:id="@+id/Essa"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="270dp"
+                android:text="Esa"
+                tools:ignore="HardcodedText" />
+            <Button
+                android:id="@+id/Arham"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="330dp"
+                android:text="Ar"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,10 +98,12 @@
             android:gravity="center|center"
             android:orientation="horizontal">
 
+
             <Button
                 android:id="@+id/btnHello"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Hello" />
 
             <TextView
@@ -74,7 +124,8 @@
                 android:id="@+id/btnHow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="How Are You" />
+                android:text="How Are You"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/question"
@@ -82,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:text="trial"
                 android:textColor="@color/colorPrimary" />
+
         </LinearLayout>
 
 
@@ -90,6 +142,7 @@
             android:layout_height="wrap_content"
             android:gravity="center|center"
             android:orientation="horizontal">
+
 
             <Button
                 android:id="@+id/btnturn"
@@ -105,6 +158,7 @@
                 android:layout_height="wrap_content"
                 android:text="trial"
                 android:textColor="@color/colorPrimary" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -117,7 +171,7 @@
                 android:id="@+id/btnRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Turn Right" />
+                android:text="Forward" />
 
             <TextView
                 android:id="@+id/tRight"
@@ -125,6 +179,7 @@
                 android:layout_height="wrap_content"
                 android:text="trial"
                 android:textColor="@color/colorPrimary" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -137,7 +192,7 @@
                 android:id="@+id/btnLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Turn Left" />
+                android:text="Backward" />
 
             <TextView
                 android:id="@+id/tLeft"
@@ -145,7 +200,9 @@
                 android:layout_height="wrap_content"
                 android:text="trial"
                 android:textColor="@color/colorPrimary" />
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -164,6 +221,7 @@
                 android:layout_height="wrap_content"
                 android:text="trial"
                 android:textColor="@color/colorPrimary" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -184,6 +242,7 @@
                 android:layout_height="wrap_content"
                 android:text="trial"
                 android:textColor="@color/colorPrimary" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -205,6 +264,7 @@
                 android:text="trial"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -238,5 +298,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>
