@@ -53,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private static String SEPARATOR, TERMINATOR;
     private boolean restartDiscoveryBoolean;
-    Button turnaround, forward, backward, hello, btnbye, goodJob, howAre,goBack,finish,student1,student2,student3,student4,student5,student6;
+    Button  turnaround, forward, backward, hello, btnbye, goodJob,
+            howAre,goBack,finish,student1,student2,student3,student4
+            ,student5,student6,time_act;
     RadioButton reset,stopMtion;
     // Command String variables for expressions //
     final String FORWARD_MOVEMENT_CLASSIFIER = "F";
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     final String MODIFIER = "000_000";
     final String distance = "800";
     final String trunDistance = "2500";
-    TextView tvHello, tvHow, tvTurn, tvRight, tvLeft, tvbye, tvGood,tvGo,tvFinish;
+    TextView tvHello, tvHow, tvTurn, tvRight, tvLeft, tvbye, tvGood,tvGo,tvFinish,tvTime;
     int helloTrial, howTrial, turnTrial, rightTrial, leftTrial, doTrial, goodTrial,gobck,byebye;
     private float DEFAULT_SPEED = 0.75f; //is actually 0.01 * 100% //
     private double mySpeed;
@@ -174,8 +176,7 @@ public class MainActivity extends AppCompatActivity {
         howAre = (Button) findViewById(R.id.btnHow);
         goBack = (Button)findViewById(R.id.btngo);
         finish=(Button)findViewById(R.id.btnFinish);
-        tvHello = (TextView) findViewById(R.id.hello);
-        tvHow = (TextView) findViewById(R.id.question);
+        time_act=(Button)findViewById(R.id.act_time);
         tvTurn = (TextView) findViewById(R.id.turnAround);
         tvbye = (TextView) findViewById(R.id.byeTrial);
         tvLeft = (TextView) findViewById(R.id.tLeft);
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         tvGood = (TextView) findViewById(R.id.goodJob);
         tvGo =(TextView)findViewById(R.id.goTrial);
         tvFinish=(TextView)findViewById(R.id.finishTrial);
+        tvTime=(TextView)findViewById(R.id.time);
         reset =(RadioButton)findViewById(R.id.resetButton);
         stopMtion=(RadioButton)findViewById(R.id.stopButton);
 
@@ -197,8 +199,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 writeToBluetooth("G", "Hello", valueOf(mySpeed));
-                helloTrial ++;
-                tvHello.setText(String.valueOf(helloTrial));
+
             }
         });
 
@@ -213,19 +214,43 @@ public class MainActivity extends AppCompatActivity {
         });
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                writeToBluetooth("G", "Do this", valueOf(mySpeed));
-                writeToBluetooth(FORWARD_MOVEMENT_CLASSIFIER, distance, MODIFIER);
+            public void onClick(View v) {
+                writeToBluetooth("G","Do this",valueOf(mySpeed));
+                writeToBluetooth(FORWARD_MOVEMENT_CLASSIFIER,distance,MODIFIER);
                 rightTrial++;
                 tvRight.setText(String.valueOf(rightTrial));
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        writeToBluetooth(LEFT_MOVEMENT_CLASSIFIER,distance,MODIFIER);
+                        writeToBluetooth("G","Stop",valueOf(mySpeed));
                     }
                 },5000);
+                //writeToBluetooth("G","Stop",valueOf(mySpeed));
             }
         });
+        /*forward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                writeToBluetooth("G", "Do this", valueOf(mySpeed));
+                Log.i("777","Front Do this");
+                writeToBluetooth(FORWARD_MOVEMENT_CLASSIFIER, distance, MODIFIER);
+                rightTrial++;
+                tvRight.setText(String.valueOf(rightTrial));
+                writeToBluetooth("G","stop",valueOf(mySpeed));
+                *//*handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("777","Front Stop");
+                        writeToBluetooth("G","Stop",valueOf(mySpeed));
+                        writeToBluetooth(BACKWARD_MOVEMENT_CLASSIFIER+"G",distance+"DO this",MODIFIER);
+                        Log.i("777","Back Stop");
+                        writeToBluetooth("G","Stop",valueOf(mySpeed));
+                    }
+                },5000);
+*//*
+
+            }
+        });*/
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -237,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                        // Toast.makeText(MainActivity.this,"working",LENGTH_SHORT).show();
-                        writeToBluetooth(RIGHT_MOVEMENT_CLASSIFIER,distance,MODIFIER);
+                        writeToBluetooth("G", "Stop", valueOf(mySpeed));
                     }
                 },5000);
 
@@ -270,9 +295,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 writeToBluetooth("G", "How Are You", valueOf(mySpeed));
-                howTrial++;
-                tvHow.setText(String.valueOf(howTrial));
-
             }
         });
         goBack.setOnClickListener(new View.OnClickListener() {
@@ -287,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 writeToBluetooth(STOP_MOVEMENT_CLASSIFIER,"","");
+                writeToBluetooth("G", "Stop", valueOf(mySpeed));
             }
         });
         finish.setOnClickListener(new View.OnClickListener() {
@@ -295,6 +318,12 @@ public class MainActivity extends AppCompatActivity {
                 writeToBluetooth("G","Finish",valueOf(mySpeed));
                 byebye++;
                 tvFinish.setText(valueOf(byebye));
+            }
+        });
+        time_act.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                writeToBluetooth("G","Activity Time",valueOf(DEFAULT_SPEED));
             }
         });
         student1.setOnClickListener(new View.OnClickListener() {
@@ -343,11 +372,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 leftTrial=0;
                 rightTrial=0;
-                howTrial=0;
                 gobck=0;
                 turnTrial=0;
                 goodTrial=0;
-                helloTrial=0;
                 doTrial=0;
                 byebye=0;
                 tvLeft.setText(String.valueOf(leftTrial));
@@ -355,10 +382,8 @@ public class MainActivity extends AppCompatActivity {
                 tvGo.setText(String.valueOf(gobck));
                 tvbye.setText(String.valueOf(doTrial));
                 tvGood.setText(String.valueOf(goodTrial));
-                tvHello.setText(String.valueOf(helloTrial));
                 tvTurn.setText(String.valueOf(turnTrial));
                 tvFinish.setText(String.valueOf(byebye));
-                tvHow.setText(String.valueOf(howTrial));
             }
         });
     }
