@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
         goodJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                writeToBluetooth("G", "Good Job", valueOf(mySpeed));
+                //writeToBluetooth("G", "Good Job", valueOf(mySpeed));
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
